@@ -116,7 +116,7 @@ class Mesh{
   }
   
   // change the color of the triangle containing the point (xcor, ycor)
-  boolean change_color_at(float xcor, float ycor){
+  void change_color_at(float xcor, float ycor){
     int ix = get_x_index_from_coordinates(xcor, ycor);
     int iy = get_y_index_from_coordinates(xcor, ycor);
     if(ix < num_x && iy < num_y && ix >= 0 && iy >= 0){
@@ -124,32 +124,8 @@ class Mesh{
       Equilateral_Triangle[][] paintlist = new Equilateral_Triangle[4][4];
       
       t.change_color();
-      
       t.paint();
-      
-      // paint in order appearance of highest color to lowest (reverse for paint bottom-up paint layer)
-//      paintlist[t.fill_color][0] = t;       
-//      if (t.top_neighbor != null){
-//        paintlist[t.top_neighbor.fill_color][1] = t.top_neighbor;
-//      }
-//      if (t.bottom_neighbor != null){
-//        paintlist[t.bottom_neighbor.fill_color][2] = t.bottom_neighbor;
-//      }
-//      if (t.side_neighbor != null){
-//        paintlist[t.side_neighbor.fill_color][3] = t.side_neighbor;
-//      }
-//      for(int i = 0; i < 4; i++){
-//        for (int j = 0; j < 4; j++){
-//          
-//          if(paintlist[i][j] != null){
-//            t = paintlist[i][j];
-//            t.paint();
-//          }
-//        }
-//      }
-      return true;
     }
-    return false;
   }
   
   void paint_all(){
@@ -191,19 +167,16 @@ class Equilateral_Triangle {
     x3 = x2;    
   }
  
-  boolean add_top_neighbor(Equilateral_Triangle t){
+  void add_top_neighbor(Equilateral_Triangle t){
     top_neighbor = t;
-    return true;
   }
   
-  boolean add_bottom_neighbor(Equilateral_Triangle t){
+  void add_bottom_neighbor(Equilateral_Triangle t){
     bottom_neighbor = t;
-    return true;
   }
   
-  boolean add_side_neighbor(Equilateral_Triangle t){
+  void add_side_neighbor(Equilateral_Triangle t){
     side_neighbor = t;
-    return true;
   }
   
   void change_color(){
