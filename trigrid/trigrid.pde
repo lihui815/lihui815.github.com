@@ -21,7 +21,7 @@ void setup()
 }
 
 void draw(){
-  triangle_grid.paint_all();
+  //triangle_grid.paint_all();
 }
 
 void mousePressed(){
