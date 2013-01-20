@@ -1,5 +1,5 @@
 // comments go here
-int SIZE_X = 1000;
+int SIZE_X = 2000;
 int SIZE_Y = 1000;
 float SIDE_LEN = 50;
 
@@ -18,6 +18,7 @@ void setup()
   //fill(COLOR_BG);
   triangle_grid.create_new_triangle_mesh();
   noLoop();  
+  
 }
 
 void draw(){  
@@ -161,8 +162,12 @@ class Mesh{
       
       t.paint();
       
+      fill(0);
+      ellipse(xcor, ycor, 5, 5);
+      
       return true;
     }
+    ellipse(xcor, ycor, 5, 5);
     return false;
   }
   
