@@ -1,7 +1,7 @@
 // comments go here
-int SIZE_X = 1200;
-int SIZE_Y = 600;
-float SIDE_LEN = 200;
+int SIZE_X = 1500;
+int SIZE_Y = 900;
+float SIDE_LEN = 150;
 
 color COLOR_BG = color(255);
 color COLOR_MESH = color(225);
@@ -15,7 +15,7 @@ void setup()
 {
   size(SIZE_X, SIZE_Y);
   background(COLOR_BG);
-  triangle_grid.create_new_triangle_mesh();
+  triangle_grid.create_new_triangle_mesh();  
   noLoop();  
   
 }
@@ -26,8 +26,8 @@ void mousePressed(){
   float x = mouseX;
   float y = mouseY;
   triangle_grid.change_color_at(x, y);
-  fill(0);
-  ellipse(x, y, 5, 5);
+  //fill(0);
+  //ellipse(x, y, 5, 5);
   redraw();
   
 }
@@ -37,7 +37,7 @@ class Mesh{
   float start_x, start_y, size_x, size_y, side_len;
   float x_inc, y_inc;
   int num_x, num_y, array_size;
-  ArrayList triangles;
+  Equilateral_Triangle[][] triangles;
   
   Mesh(float sizex, float sizey, float sidelen){ 
     size_x = sizex;
@@ -49,7 +49,7 @@ class Mesh{
     x_inc = side_len * sqrt(3) / 2;
     num_x = (int) (size_x / x_inc)+2;
     num_y = (int) (size_y / y_inc)+2;
-    array_size = num_x * num_y;
+    triangles = new Equilateral_Triangle[num_x][num_y];
   }
   
   // calculating x coordinate and y coordinate of the side vertex of the triangle 
@@ -63,20 +63,6 @@ class Mesh{
   
   float get_y_coordinate_from_y_index(int iy){
     return iy * y_inc + start_y;
-  }
-  
-  // calculating 2-d array x-index and y-index from single array index
-  int get_x_index_from_array_index(int i){
-    return (int) ((i + 1) / num_y);
-  }
-  
-  int get_y_index_from_array_index(int i){
-    return (int) (i % num_y);
-  }
-  
-  // get array index from 2-d array x-index and y-index
-  int get_array_index_from_xy(int ix, int iy){
-    return (int) (ix * num_y + iy);
   }
   
   // calculate which triangle in 2d array contains the points (xcor, ycor)
@@ -107,22 +93,22 @@ class Mesh{
     boolean point_left = true;
     boolean point_left_temp = true;
     Equilateral_Triangle curr, neighbor;
-    triangles = new ArrayList();
+    //triangles = new ArrayList();
     for (int ix = 0; ix < num_x; ix++){
       for (int iy = 0; iy < num_y; iy++){
         xcor = get_x_coordinate_from_xy_index(ix, iy);
-        ycor = get_y_coordinate_from_y_index(iy);
-        triangles.add(new Equilateral_Triangle(point_left_temp, xcor, ycor, side_len)); 
+        ycor = get_y_coordinate_from_y_index(iy); 
+        curr = new Equilateral_Triangle(point_left_temp, xcor, ycor, side_len);
+        triangles[ix][iy] = curr;
 
         // connect neighbors to top and left
-        curr = (Equilateral_Triangle) triangles.get(get_array_index_from_xy(ix, iy));
         if (iy > 0){
-          neighbor = (Equilateral_Triangle) triangles.get(get_array_index_from_xy(ix, iy - 1));
+          neighbor = (Equilateral_Triangle) triangles[ix][iy - 1];
           curr.add_top_neighbor(neighbor);
           neighbor.add_bottom_neighbor(curr);
         }
         if (ix > 0 && !point_left_temp){
-          neighbor = (Equilateral_Triangle) triangles.get(get_array_index_from_xy(ix - 1, iy));
+          neighbor = (Equilateral_Triangle) triangles[ix - 1][iy];
           curr.add_side_neighbor(neighbor);
           neighbor.add_side_neighbor(curr);
         }
@@ -141,23 +127,38 @@ class Mesh{
     int ix = get_x_index_from_coordinates(xcor, ycor);
     int iy = get_y_index_from_coordinates(xcor, ycor);
     if(ix < num_x && iy < num_y && ix >= 0 && iy >= 0){
-      int i = get_array_index_from_xy(ix, iy);
-      Equilateral_Triangle t = (Equilateral_Triangle) triangles.get(i);
+      Equilateral_Triangle t = (Equilateral_Triangle) triangles[ix][iy];
+      Equilateral_Triangle[][] paintlist = new Equilateral_Triangle[4][4];
+      
       t.change_color();
-          
+      
+      // paint in order appearance of highest color to lowest (reverse for paint bottom-up paint layer)
+      paintlist[t.fill_color][0] = t;       
       if (t.top_neighbor != null){
-        t.top_neighbor.paint();
+        paintlist[t.top_neighbor.fill_color][1] = t.top_neighbor;
       }
       if (t.bottom_neighbor != null){
-        t.bottom_neighbor.paint();
+        paintlist[t.bottom_neighbor.fill_color][2] = t.bottom_neighbor;
       }
       if (t.side_neighbor != null){
-        t.side_neighbor.paint();
+        paintlist[t.side_neighbor.fill_color][3] = t.side_neighbor;
       }
-      t.paint();      
+      for(int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+          
+          if(paintlist[i][j] != null){
+            t = paintlist[i][j];
+            t.paint();
+          }
+        }
+      }
       return true;
     }
     return false;
+  }
+  
+  void paint_in_order(ArrayList paintlist){
+    
   }
   
 }
