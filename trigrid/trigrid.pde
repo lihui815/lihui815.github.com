@@ -225,42 +225,42 @@ class Equilateral_Triangle {
     fill(get_fill_color());
     stroke(get_fill_color());
     
-    top = top_neighbor != null && top_neighbor.fill_color == fill_color;
-    bot = bottom_neighbor != null && bottom_neighbor.fill_color == fill_color;
-    sid = side_neighbor != null && side_neighbor.fill_color == fill_color;
-    
-    if(top && bot && sid){
-      triangle(side_neighbor.x1, side_neighbor.y1, top_neighbor.x2, top_neighbor.y2, bottom_neighbor.x3, bottom_neighbor.y3);
-      return;
-    }
-    if (top && bot){
-      quad(top_neighbor.x2, top_neighbor.y2, x2, y2, x3, y3, bottom_neighbor.x3, bottom_neighbor.y3);
-      return;
-    }
-    if(top && sid){
-      quad(top_neighbor.x2, top_neighbor.y2, x1, y1, x3, y3, side_neighbor.x1, side_neighbor.y1);
-      return;
-    }
-    if(bot && sid){
-      quad(x1, y1, x2, y2, side_neighbor.x1, side_neighbor.y1, bottom_neighbor.x3, bottom_neighbor.y3);
-      return;
-    }
-    if(top){
-      quad(x1, y1, x3, y3, x2, y2, top_neighbor.x2, top_neighbor.y2);
-      return;
-    }
-    if(bot){
-      quad(x1, y1, x2, y2, x3, y3, bottom_neighbor.x3, bottom_neighbor.y3);
-      return;
-    }
-    if(sid){
-      quad(x1, y1, x2, y2, side_neighbor.x1, side_neighbor.y1, x3, y3);
-      return;
-    }
-    if(!(top || bot || sid)){
+//    top = top_neighbor != null && top_neighbor.fill_color == fill_color;
+//    bot = bottom_neighbor != null && bottom_neighbor.fill_color == fill_color;
+//    sid = side_neighbor != null && side_neighbor.fill_color == fill_color;
+//    
+//    if(top && bot && sid){
+//      triangle(side_neighbor.x1, side_neighbor.y1, top_neighbor.x2, top_neighbor.y2, bottom_neighbor.x3, bottom_neighbor.y3);
+//      return;
+//    }
+//    if (top && bot){
+//      quad(top_neighbor.x2, top_neighbor.y2, x2, y2, x3, y3, bottom_neighbor.x3, bottom_neighbor.y3);
+//      return;
+//    }
+//    if(top && sid){
+//      quad(top_neighbor.x2, top_neighbor.y2, x1, y1, x3, y3, side_neighbor.x1, side_neighbor.y1);
+//      return;
+//    }
+//    if(bot && sid){
+//      quad(x1, y1, x2, y2, side_neighbor.x1, side_neighbor.y1, bottom_neighbor.x3, bottom_neighbor.y3);
+//      return;
+//    }
+//    if(top){
+//      quad(x1, y1, x3, y3, x2, y2, top_neighbor.x2, top_neighbor.y2);
+//      return;
+//    }
+//    if(bot){
+//      quad(x1, y1, x2, y2, x3, y3, bottom_neighbor.x3, bottom_neighbor.y3);
+//      return;
+//    }
+//    if(sid){
+//      quad(x1, y1, x2, y2, side_neighbor.x1, side_neighbor.y1, x3, y3);
+//      return;
+//    }
+//    if(!(top || bot || sid)){
       triangle(x1, y1, x2, y2, x3, y3);
-      return;
-    } 
+//      return;
+//    } 
   }
 }
 
