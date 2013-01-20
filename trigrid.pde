@@ -1,7 +1,7 @@
 // comments go here
-int SIZE_X = 1500;
-int SIZE_Y = 900;
-float SIDE_LEN = 150;
+int SIZE_X = 1800;
+int SIZE_Y = 1000;
+float SIDE_LEN = 50;
 
 color COLOR_BG = color(255);
 color COLOR_MESH = color(225);
@@ -11,27 +11,18 @@ color COLOR_3 = color(100, 200, 50);
 
 Mesh triangle_grid = new Mesh(SIZE_X, SIZE_Y, SIDE_LEN);
 
-void setup()
-{
+void setup(){
   size(SIZE_X, SIZE_Y);
   background(COLOR_BG);
-  triangle_grid.create_new_triangle_mesh();  
-  noLoop();  
-  
+  triangle_grid.create_new_triangle_mesh();
 }
 
-void draw(){
-  triangle_grid.paint_all();
-}
+void draw(){}
 
 void mousePressed(){
   float x = mouseX;
   float y = mouseY;
   triangle_grid.change_color_at(x, y);
-  //fill(0);
-  //ellipse(x, y, 5, 5);
-  redraw();
-  
 }
 
 class Mesh{
