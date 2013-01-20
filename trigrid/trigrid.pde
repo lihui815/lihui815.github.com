@@ -295,9 +295,9 @@ class Equilateral_Triangle {
     fill(get_fill_color());
     stroke(get_fill_color());
     triangle(x1, y1, x2, y2, x3, y3);
-    top = (top_neighbor == null || top_neighbor.fill_color > fill_color);
-    bot = (bottom_neighbor == null || bottom_neighbor.fill_color > fill_color);
-    sid = (side_neighbor == null || side_neighbor.fill_color > fill_color);
+    top = (top_neighbor != null && top_neighbor.fill_color > fill_color);
+    bot = (bottom_neighbor != null && bottom_neighbor.fill_color > fill_color);
+    sid = (side_neighbor != null && side_neighbor.fill_color > fill_color);
     
     //consistent stroking priority so that when switching colors previous strokes don't show
     if (top){
@@ -324,10 +324,10 @@ class Equilateral_Triangle {
     }
     line(x2, y2, x3, y3);
     
-    //improving smoothconnect with neighbors, only if left pointing to reduce redundance
+    //improving smoothconnect with neighbors
     fill(get_fill_color());
     stroke(get_fill_color());
-    if (is_left_pointing){
+    //if (is_left_pointing){
       float px1, px2, px3, px4, py1, py2, py3, py4;
       top = top_neighbor != null && top_neighbor.fill_color == fill_color;
       bot = bottom_neighbor != null && bottom_neighbor.fill_color == fill_color;
@@ -397,7 +397,7 @@ class Equilateral_Triangle {
         return;
       }
       
-    }
+    //}
     
   }
   
