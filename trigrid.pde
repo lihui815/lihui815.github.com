@@ -235,30 +235,14 @@ class Equilateral_Triangle {
         if(top){
           stroke(COLOR_MESH);
           line(x1, y1, x2, y2);
-        } 
-        //else{
-        //  stroke(top_neighbor.get_fill_color());
-        //}
-        //line(x1, y1, x2, y2);
-            
+        }            
         if(bot){  
           stroke(COLOR_MESH);
           line(x1, y1, x3, y3);
-        }
-        //else{
-        //  stroke(bottom_neighbor.get_fill_color());
-        //}
-        //line(x1, y1, x3, y3);
-            
-        if(sid){
+        }if(sid){
           stroke(COLOR_MESH);
           line(x2, y2, x3, y3);
         }
-        //else{
-        //  stroke(side_neighbor.get_fill_color());
-        //}
-        //line(x2, y2, x3, y3);
-          
         return;
     }
        
