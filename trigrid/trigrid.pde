@@ -190,33 +190,33 @@ class Equilateral_Triangle {
   }
  
   boolean add_top_neighbor(Equilateral_Triangle t){
-    if(top_neighbor == null && t != null && is_left_pointing != t.is_left_pointing){
-      if (t.x1 == x2 && t.y1 == y2){
+    //if(top_neighbor == null && t != null && is_left_pointing != t.is_left_pointing){
+    //  if (t.x1 == x2 && t.y1 == y2){
         top_neighbor = t;
         return true;
-      }  
-    }
-    return false;
+    //  }  
+    //}
+    //return false;
   }
   
   boolean add_bottom_neighbor(Equilateral_Triangle t){
-    if(bottom_neighbor == null && t != null && is_left_pointing != t.is_left_pointing){
-      if (t.x1 == x3 && t.y1 == y3){
-        bottom_neighbor = t;
+    //if(bottom_neighbor == null && t != null && is_left_pointing != t.is_left_pointing){
+    //  if (t.x1 == x3 && t.y1 == y3){
+    //    bottom_neighbor = t;
         return true;
-      }  
-    }
-    return false;
+    //  }  
+    //}
+    //return false;
   }
   
   boolean add_side_neighbor(Equilateral_Triangle t){
-    if(side_neighbor == null && t != null && is_left_pointing != t.is_left_pointing){
-      if (t.x1 == (x2-x1) + x2 && t.y1 == y1){
-        side_neighbor = t;
+    //if(side_neighbor == null && t != null && is_left_pointing != t.is_left_pointing){
+    //  if (t.x1 == (x2-x1) + x2 && t.y1 == y1){
+    //    side_neighbor = t;
         return true;
-      }  
-    }
-    return false;
+    //  }  
+    //}
+    //return false;
   }
   
   void change_color(){
