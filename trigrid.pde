@@ -1,7 +1,7 @@
 // comments go here
-int SIZE_X = 2000;
-int SIZE_Y = 1000;
-float SIDE_LEN = 500;
+int SIZE_X = 1200;
+int SIZE_Y = 600;
+float SIDE_LEN = 200;
 
 color COLOR_BG = color(255);
 color COLOR_MESH = color(225);
@@ -31,6 +31,8 @@ void mousePressed(){
   float x = mouseX;
   float y = mouseY;
   triangle_grid.change_color_at(x, y);
+  fill(0);
+  ellipse(x, y, 5, 5);
   redraw();
   
 }
@@ -162,12 +164,11 @@ class Mesh{
       
       t.paint();
       
-      fill(0);
-      ellipse(xcor, ycor, 5, 5);
+      
       
       return true;
     }
-    ellipse(xcor, ycor, 5, 5);
+    
     return false;
   }
   
