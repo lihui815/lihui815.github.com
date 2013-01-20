@@ -125,26 +125,28 @@ class Mesh{
       
       t.change_color();
       
+      t.paint();
+      
       // paint in order appearance of highest color to lowest (reverse for paint bottom-up paint layer)
-      paintlist[t.fill_color][0] = t;       
-      if (t.top_neighbor != null){
-        paintlist[t.top_neighbor.fill_color][1] = t.top_neighbor;
-      }
-      if (t.bottom_neighbor != null){
-        paintlist[t.bottom_neighbor.fill_color][2] = t.bottom_neighbor;
-      }
-      if (t.side_neighbor != null){
-        paintlist[t.side_neighbor.fill_color][3] = t.side_neighbor;
-      }
-      for(int i = 0; i < 4; i++){
-        for (int j = 0; j < 4; j++){
-          
-          if(paintlist[i][j] != null){
-            t = paintlist[i][j];
-            t.paint();
-          }
-        }
-      }
+//      paintlist[t.fill_color][0] = t;       
+//      if (t.top_neighbor != null){
+//        paintlist[t.top_neighbor.fill_color][1] = t.top_neighbor;
+//      }
+//      if (t.bottom_neighbor != null){
+//        paintlist[t.bottom_neighbor.fill_color][2] = t.bottom_neighbor;
+//      }
+//      if (t.side_neighbor != null){
+//        paintlist[t.side_neighbor.fill_color][3] = t.side_neighbor;
+//      }
+//      for(int i = 0; i < 4; i++){
+//        for (int j = 0; j < 4; j++){
+//          
+//          if(paintlist[i][j] != null){
+//            t = paintlist[i][j];
+//            t.paint();
+//          }
+//        }
+//      }
       return true;
     }
     return false;
