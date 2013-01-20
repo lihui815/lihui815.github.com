@@ -202,7 +202,7 @@ class Equilateral_Triangle {
   boolean add_bottom_neighbor(Equilateral_Triangle t){
     //if(bottom_neighbor == null && t != null && is_left_pointing != t.is_left_pointing){
     //  if (t.x1 == x3 && t.y1 == y3){
-    //    bottom_neighbor = t;
+        bottom_neighbor = t;
         return true;
     //  }  
     //}
@@ -212,7 +212,7 @@ class Equilateral_Triangle {
   boolean add_side_neighbor(Equilateral_Triangle t){
     //if(side_neighbor == null && t != null && is_left_pointing != t.is_left_pointing){
     //  if (t.x1 == (x2-x1) + x2 && t.y1 == y1){
-    //    side_neighbor = t;
+        side_neighbor = t;
         return true;
     //  }  
     //}
