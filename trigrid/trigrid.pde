@@ -186,8 +186,7 @@ class Equilateral_Triangle {
     y2 = y1 - side_length / 2;
     y3 = y1 + side_length / 2;
     x2 = x1 + sign * side_length * sqrt(3) / 2;
-    x3 = x2;
-    
+    x3 = x2;    
   }
  
   boolean add_top_neighbor(Equilateral_Triangle t){
@@ -237,7 +236,7 @@ class Equilateral_Triangle {
   }
     
   void paint(){
-    boolean top, bot, sid;      
+    boolean top, bot, sid; 
     if(fill_color == 0){
         // no color
         top = (top_neighbor == null || top_neighbor.fill_color == 0);
@@ -248,7 +247,6 @@ class Equilateral_Triangle {
         stroke(COLOR_BG);
         triangle(x1, y1, x2, y2, x3, y3);
           
-            
         if(top){
           stroke(COLOR_MESH);
         } 
@@ -312,7 +310,10 @@ class Equilateral_Triangle {
       quad(x1, y1, x2, y2, side_neighbor.x1, side_neighbor.y1, x3, y3);
       return;
     }
-    triangle(x1, y1, x2, y2, x3, y3); 
+    if(!(top || bot || sid)){
+      triangle(x1, y1, x2, y2, x3, y3);
+      return;
+    } 
   }
 }
 
