@@ -1,6 +1,6 @@
 // comments go here
-int SIZE_X = 1800;
-int SIZE_Y = 1000;
+int SIZE_X = 2100;
+int SIZE_Y = 900;
 float SIDE_LEN = 50;
 
 color COLOR_BG = color(255);
