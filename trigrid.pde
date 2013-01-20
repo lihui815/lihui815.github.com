@@ -1,7 +1,7 @@
 // comments go here
 int SIZE_X = 2000;
 int SIZE_Y = 1000;
-float SIDE_LEN = 50;
+float SIDE_LEN = 500;
 
 color COLOR_BG = color(255);
 color COLOR_MESH = color(225);
