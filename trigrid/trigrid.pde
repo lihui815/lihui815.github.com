@@ -16,7 +16,7 @@ void setup()
   size(SIZE_X, SIZE_Y);
   background(COLOR_BG);
   triangle_grid.create_new_triangle_mesh();  
-  noLoop();  
+  //noLoop();  
   
 }
 
@@ -30,7 +30,7 @@ void mousePressed(){
   triangle_grid.change_color_at(x, y);
   //fill(0);
   //ellipse(x, y, 5, 5);
-  redraw();
+  //redraw();
   
 }
 
