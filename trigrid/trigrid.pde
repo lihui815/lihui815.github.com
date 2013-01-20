@@ -15,17 +15,12 @@ void setup()
 {
   size(SIZE_X, SIZE_Y);
   background(COLOR_BG);
-  //fill(COLOR_BG);
   triangle_grid.create_new_triangle_mesh();
   noLoop();  
   
 }
 
-void draw(){  
- 
-  
-  
-}
+void draw(){}
 
 void mousePressed(){
   float x = mouseX;
@@ -55,10 +50,10 @@ class Mesh{
     num_x = (int) (size_x / x_inc)+2;
     num_y = (int) (size_y / y_inc)+2;
     array_size = num_x * num_y;
-    
-    //create_new_triangle_mesh();
   }
   
+  // calculating x coordinate and y coordinate of the side vertex of the triangle 
+  // from the x-index and y-index in "2-d array" of triangles
   float get_x_coordinate_from_xy_index(int ix, int iy){
     int adj1 = ix % 2;
     int adj2 = iy % 2;
@@ -70,6 +65,7 @@ class Mesh{
     return iy * y_inc + start_y;
   }
   
+  // calculating 2-d array x-index and y-index from single array index
   int get_x_index_from_array_index(int i){
     return (int) ((i + 1) / num_y);
   }
@@ -78,10 +74,12 @@ class Mesh{
     return (int) (i % num_y);
   }
   
+  // get array index from 2-d array x-index and y-index
   int get_array_index_from_xy(int ix, int iy){
     return (int) (ix * num_y + iy);
   }
   
+  // calculate which triangle in 2d array contains the points (xcor, ycor)
   int get_x_index_from_coordinates(float xcor, float ycor){
     return (int) ((xcor-start_x) / x_inc);
   }
@@ -103,6 +101,7 @@ class Mesh{
     return temp_iy;
   }
   
+  // initiate a new triangle mesh
   void create_new_triangle_mesh(){
     float xcor, ycor;
     boolean point_left = true;
@@ -115,13 +114,12 @@ class Mesh{
         ycor = get_y_coordinate_from_y_index(iy);
         triangles.add(new Equilateral_Triangle(point_left_temp, xcor, ycor, side_len)); 
 
-        // add neighbors
+        // connect neighbors to top and left
         curr = (Equilateral_Triangle) triangles.get(get_array_index_from_xy(ix, iy));
         if (iy > 0){
           neighbor = (Equilateral_Triangle) triangles.get(get_array_index_from_xy(ix, iy - 1));
           curr.add_top_neighbor(neighbor);
           neighbor.add_bottom_neighbor(curr);
-          
         }
         if (ix > 0 && !point_left_temp){
           neighbor = (Equilateral_Triangle) triangles.get(get_array_index_from_xy(ix - 1, iy));
@@ -129,21 +127,16 @@ class Mesh{
           neighbor.add_side_neighbor(curr);
         }
         
-        
-        // go ahead and paint since inital grid is gray anyway
-        
+        // go ahead and paint the triangle since inital grid is gray anyway
         curr.paint();
-        
-        
-        point_left_temp = !point_left_temp;
-                
+        point_left_temp = !point_left_temp;        
       }
       point_left = !point_left;
       point_left_temp = point_left;
     }
-    
   }
   
+  // change the color of the triangle containing the point (xcor, ycor)
   boolean change_color_at(float xcor, float ycor){
     int ix = get_x_index_from_coordinates(xcor, ycor);
     int iy = get_y_index_from_coordinates(xcor, ycor);
@@ -151,7 +144,7 @@ class Mesh{
       int i = get_array_index_from_xy(ix, iy);
       Equilateral_Triangle t = (Equilateral_Triangle) triangles.get(i);
       t.change_color();
-      
+          
       if (t.top_neighbor != null){
         t.top_neighbor.paint();
       }
@@ -161,14 +154,9 @@ class Mesh{
       if (t.side_neighbor != null){
         t.side_neighbor.paint();
       }
-      
-      t.paint();
-      
-      
-      
+      t.paint();      
       return true;
     }
-    
     return false;
   }
   
@@ -191,9 +179,6 @@ class Equilateral_Triangle {
     side_length = side_len;
     x1 = xp1;
     y1 = yp1;
-    
-    // (x1,y1) should be the left coordinate if left pointing, and right coordinate if right pointing.
-    // figure out (x2, y2) and (x3,y3)
     
     int sign = -1;
     if (is_left_pointing){
@@ -291,118 +276,45 @@ class Equilateral_Triangle {
           
         return;
     }
-    
-    fill(get_fill_color());
-    stroke(get_fill_color());
-    triangle(x1, y1, x2, y2, x3, y3);
-    top = (top_neighbor != null && top_neighbor.fill_color > fill_color);
-    bot = (bottom_neighbor != null && bottom_neighbor.fill_color > fill_color);
-    sid = (side_neighbor != null && side_neighbor.fill_color > fill_color);
-    
-    //consistent stroking priority so that when switching colors previous strokes don't show
-    if (top){
-      stroke(top_neighbor.get_fill_color());
-    }
-    else{
-      stroke(get_fill_color());
-    }
-    line(x1, y1, x2, y2);
-            
-    if(bot){  
-      stroke(bottom_neighbor.get_fill_color());
-    }
-    else{
-      stroke(get_fill_color());
-    }
-    line(x1, y1, x3, y3);
-            
-    if(sid){
-      stroke(side_neighbor.get_fill_color());
-    }
-    else{
-      stroke(get_fill_color());
-    }
-    line(x2, y2, x3, y3);
-    
+       
     //improving smoothconnect with neighbors
     fill(get_fill_color());
     stroke(get_fill_color());
-    //if (is_left_pointing){
-      float px1, px2, px3, px4, py1, py2, py3, py4;
-      top = top_neighbor != null && top_neighbor.fill_color == fill_color;
-      bot = bottom_neighbor != null && bottom_neighbor.fill_color == fill_color;
-      sid = side_neighbor != null && side_neighbor.fill_color == fill_color;
-      if(top && bot && sid){
-        px1 = side_neighbor.x1;
-        py1 = side_neighbor.y1;
-        px2 = top_neighbor.x2;
-        py2 = top_neighbor.y2;
-        px3 = bottom_neighbor.x3;
-        py3 = bottom_neighbor.y3;
-        triangle(px1, py1, px2, py2, px3, py3);
-        return;
-      }
-      if (top && bot){
-        px1 = top_neighbor.x2;
-        py1 = top_neighbor.y2;
-        px2 = x2;
-        py2 = y2;
-        px3 = x3;
-        py3 = y3;
-        px4 = bottom_neighbor.x3;
-        py4 = bottom_neighbor.y3;
-        quad(px1, py1, px2, py2, px3, py3, px4, py4);
-        return;
-      }
-      if(top && sid){
-        px1 = top_neighbor.x2;
-        py1 = top_neighbor.y2;
-        px2 = x1;
-        py2 = y1;
-        px3 = x3;
-        py3 = y3;
-        px4 = side_neighbor.x1;
-        py4 = side_neighbor.y1;
-        quad(px1, py1, px2, py2, px3, py3, px4, py4);
-        return;
-      }
-      if(bot && sid){
-        px1 = x1;
-        py1 = y1;
-        px2 = x2;
-        py2 = y2;
-        px3 = side_neighbor.x1;
-        py3 = side_neighbor.y1;
-        px4 = bottom_neighbor.x3;
-        py4 = bottom_neighbor.y3;
-        quad(px1, py1, px2, py2, px3, py3, px4, py4);
-        return;
-      }
-      if(top){
-        px4 = top_neighbor.x2;
-        py4 = top_neighbor.y2;
-        quad(x1, y1, x3, y3, x2, y2, px4, py4);
-        return;
-      }
-      if(bot){
-        px4 = bottom_neighbor.x3;
-        py4 = bottom_neighbor.y3;
-        quad(x1, y1, x2, y2, x3, y3, px4, py4);
-        return;
-      }
-      if(sid){
-        px4 = side_neighbor.x1;
-        py4 = side_neighbor.y1;
-        quad(x1, y1, x2, y2, px4, py4, x3, y3);
-        return;
-      }
-      
-    //}
     
+    top = top_neighbor != null && top_neighbor.fill_color == fill_color;
+    bot = bottom_neighbor != null && bottom_neighbor.fill_color == fill_color;
+    sid = side_neighbor != null && side_neighbor.fill_color == fill_color;
+    
+    if(top && bot && sid){
+      triangle(side_neighbor.x1, side_neighbor.y1, top_neighbor.x2, top_neighbor.y2, bottom_neighbor.x3, bottom_neighbor.y3);
+      return;
+    }
+    if (top && bot){
+      quad(top_neighbor.x2, top_neighbor.y2, x2, y2, x3, y3, bottom_neighbor.x3, bottom_neighbor.y3);
+      return;
+    }
+    if(top && sid){
+      quad(top_neighbor.x2, top_neighbor.y2, x1, y1, x3, y3, side_neighbor.x1, side_neighbor.y1);
+      return;
+    }
+    if(bot && sid){
+      quad(x1, y1, x2, y2, side_neighbor.x1, side_neighbor.y1, bottom_neighbor.x3, bottom_neighbor.y3);
+      return;
+    }
+    if(top){
+      quad(x1, y1, x3, y3, x2, y2, top_neighbor.x2, top_neighbor.y2);
+      return;
+    }
+    if(bot){
+      quad(x1, y1, x2, y2, x3, y3, bottom_neighbor.x3, bottom_neighbor.y3);
+      return;
+    }
+    if(sid){
+      quad(x1, y1, x2, y2, side_neighbor.x1, side_neighbor.y1, x3, y3);
+      return;
+    }
+    triangle(x1, y1, x2, y2, x3, y3); 
   }
-  
-  
-  
 }
 
 
