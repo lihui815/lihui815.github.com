@@ -1,5 +1,5 @@
 // comments go here
-int SIZE_X = 1000;
+int SIZE_X = 2000;
 int SIZE_Y = 1000;
 float SIDE_LEN = 50;
 
