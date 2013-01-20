@@ -20,7 +20,9 @@ void setup()
   
 }
 
-void draw(){}
+void draw(){
+  triangle_grid.paint_all();
+}
 
 void mousePressed(){
   float x = mouseX;
@@ -157,8 +159,13 @@ class Mesh{
     return false;
   }
   
-  void paint_in_order(ArrayList paintlist){
-    
+  void paint_all(){
+    for(int ix = 0; ix < num_x; ix++){
+        for (int iy = 0; iy < num_y; iy++){
+          Equilateral_Triangle t = triangles[ix][iy];
+          t.paint();
+        }
+    }    
   }
   
 }
