@@ -3,8 +3,8 @@ int SIZE_X = 2000;
 int SIZE_Y = 1000;
 float SIDE_LEN = 50;
 
-color COLOR_BG = color(255);
-color COLOR_MESH = color(225);
+color COLOR_BG = color(255, 250, 245);
+color COLOR_MESH = color(240);
 color COLOR_1 = color(200, 50, 100);
 color COLOR_2 = color(50, 100, 200);
 color COLOR_3 = color(100, 200, 50);
