@@ -126,17 +126,7 @@ class Mesh{
       t.change_color();
       t.paint();
     }
-  }
-  
-  void paint_all(){
-    for(int ix = 0; ix < num_x; ix++){
-        for (int iy = 0; iy < num_y; iy++){
-          Equilateral_Triangle t = triangles[ix][iy];
-          t.paint();
-        }
-    }    
-  }
-  
+  }  
 }
 
 class Equilateral_Triangle {
